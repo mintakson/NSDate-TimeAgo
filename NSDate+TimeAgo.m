@@ -16,7 +16,7 @@ NSLocalizedStringFromTableInBundle(key, @"NSDateTimeAgo", [NSBundle bundleWithPa
 // does not include interim summary options such as 'Just now'
 - (NSString *)timeAgoSimple
 {
-    NSDate *now = [NSDate date];
+    NSDate *now = [NSDate revisedDate];
     double deltaSeconds = fabs([self timeIntervalSinceDate:now]);
     double deltaMinutes = deltaSeconds / 60.0f;
     
@@ -57,7 +57,7 @@ NSLocalizedStringFromTableInBundle(key, @"NSDateTimeAgo", [NSBundle bundleWithPa
 
 - (NSString *)timeAgo
 {
-    NSDate *now = [NSDate date];
+    NSDate *now = [NSDate revisedDate];
     double deltaSeconds = fabs([self timeIntervalSinceDate:now]);
     double deltaMinutes = deltaSeconds / 60.0f;
     
@@ -128,7 +128,7 @@ NSLocalizedStringFromTableInBundle(key, @"NSDateTimeAgo", [NSBundle bundleWithPa
 - (NSString *)dateTimeAgo
 {
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDate * now = [NSDate date];
+    NSDate * now = [NSDate revisedDate];
     NSDateComponents *components = [calendar components:
                                     NSYearCalendarUnit|
                                     NSMonthCalendarUnit|
@@ -202,7 +202,7 @@ NSLocalizedStringFromTableInBundle(key, @"NSDateTimeAgo", [NSBundle bundleWithPa
 
 - (NSString *)dateTimeUntilNow
 {
-    NSDate * now = [NSDate date];
+    NSDate * now = [NSDate revisedDate];
     NSCalendar *calendar = [NSCalendar currentCalendar];
     
     NSDateComponents *components = [calendar components:NSHourCalendarUnit
@@ -316,7 +316,7 @@ NSLocalizedStringFromTableInBundle(key, @"NSDateTimeAgo", [NSBundle bundleWithPa
 
 - (NSString *) timeAgoWithLimit:(NSTimeInterval)limit dateFormat:(NSDateFormatterStyle)dFormatter andTimeFormat:(NSDateFormatterStyle)tFormatter
 {
-    if (fabs([self timeIntervalSinceDate:[NSDate date]]) <= limit)
+    if (fabs([self timeIntervalSinceDate:[NSDate revisedDate]]) <= limit)
         return [self timeAgo];
     
     return [NSDateFormatter localizedStringFromDate:self
@@ -326,7 +326,7 @@ NSLocalizedStringFromTableInBundle(key, @"NSDateTimeAgo", [NSBundle bundleWithPa
 
 - (NSString *) timeAgoWithLimit:(NSTimeInterval)limit dateFormatter:(NSDateFormatter *)formatter
 {
-    if (fabs([self timeIntervalSinceDate:[NSDate date]]) <= limit)
+    if (fabs([self timeIntervalSinceDate:[NSDate revisedDate]]) <= limit)
         return [self timeAgo];
 
     return [formatter stringFromDate:self];
